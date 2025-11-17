@@ -120,14 +120,14 @@ const start = performance.now();
 const entrypoints = [...new Bun.Glob("**.html").scanSync("src")]
   .map(a => path.resolve("src", a))
   .filter(dir => !dir.includes("node_modules"));
-console.log(`📄 Found ${entrypoints.length} HTML ${entrypoints.length === 1 ? "file" : "files"} to process\n`);
+console.log(`📄 Found ${entrypoints.length} HTML ${entrypoints.length === 1 ? "file" : "files"} to process\n ${entrypoints.join("\n ")}`);
 
 const result = await Bun.build({
   entrypoints,
   outdir,
   plugins: [plugin],
   minify: true,
-  compile: true,
+  compile: true, // set to false and will build fine
   target: "browser",
   sourcemap: "linked",
   define: {
